@@ -119,13 +119,28 @@
     </div>
 
     <label>De</label>
-    <input
-      type="email"
-      id="from"
-      placeholder="Ej: afiliados@parquesalud.com.ar">
-    <div class="hint">
-      Dirección de correo del remitente.
-    </div>
+    <select id="from">
+      <option value="afiliados@parquesalud.com.ar" 
+              data-department="Atención a Afiliados" 
+              data-office="Casa Central" 
+              data-footer="0800.777.0138|Córdoba Capital">Afiliados</option>
+
+      <option value="autorizaciones@parquesalud.com.ar" 
+              data-department="Autorizaciones" 
+              data-office="Casa Central" 
+              data-footer="0800.777.0138|Córdoba Capital">Autorizaciones</option>
+
+      <option value="coberturasespeciales@parquesalud.com.ar" 
+              data-department="Coberturas Especiales" 
+              data-office="Casa Central" 
+              data-footer="0800.777.0138|Córdoba Capital">Coberturas Especiales</option>
+
+      <option value="legales@parquesalud.com.ar" 
+              data-department="Legales" 
+              data-office="Casa Central" 
+              data-footer="0800.777.0138|Córdoba Capital">Legales</option>
+    </select>
+    <div class="hint">Seleccioná la dirección de correo del remitente.</div>
 
     <label>Para</label>
     <input
@@ -170,6 +185,8 @@
 
     function generatePreview() {
       const dateValue = document.getElementById("date").value;
+      const select = document.getElementById("from");
+      const selected = select.options[select.selectedIndex];
 
       if (!dateValue) {
         alert("Por favor, seleccioná una fecha.");
@@ -177,14 +194,18 @@
       }
 
       const emailData = {
-        from: document.getElementById("from").value,
+        from: selected.value,
+        department: selected.getAttribute("data-department"),
+        office: selected.getAttribute("data-office"),
+        footer: selected.getAttribute("data-footer"),
+
         to: document.getElementById("to").value,
         subject: document.getElementById("subject").value,
-        date: dateValue,
+        date: document.getElementById("date").value,
         time: document.getElementById("time").value,
         body: document.getElementById("body").value,
         attachment: document.getElementById("attachment").value
-      };
+     };
 
       localStorage.removeItem("emailData");
       localStorage.setItem("emailData", JSON.stringify(emailData));
