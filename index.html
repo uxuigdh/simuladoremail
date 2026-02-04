@@ -187,6 +187,10 @@
       const dateValue = document.getElementById("date").value;
       const select = document.getElementById("from");
       const selected = select.options[select.selectedIndex];
+      const selected = document.getElementById("from").selectedOptions[0];
+      emailData.department = selected.getAttribute("data-department");
+      emailData.office = selected.getAttribute("data-office");
+      emailData.footer = selected.getAttribute("data-footer");
 
       if (!dateValue) {
         alert("Por favor, seleccioná una fecha.");
